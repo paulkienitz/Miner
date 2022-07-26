@@ -416,19 +416,8 @@ whereas the first two are played at full volume.
 
 I am open to suggestions for improving future releases of the game.  At this
 point I have pretty much included every feature I ever thought of adding.
+Email paul@paulkienitz.net if you have any feedback or questions.
 
-I can be reached in the following ways, at least for the time being:
-
-Fido netmail: "Paul Kienitz" at 1:161/16
-Internet email: Paul.Kienitz@shelter.sf.ca.us
-
-Note that the two email addresses above have CHANGED since release 3!
-
-or try these northern California BBSes:           paper mail:
-                                                    Paul Kienitz
-  Winners Circle     510-845-4812                   6430 San Pablo ave.
-  La Cantina / FAUG  415-341-7566                   Oakland, CA, 94608
-                                                    USA
 
     HISTORY:
     ========
@@ -490,6 +479,9 @@ Release 5:
   - Fixed a small error in the stack-conserving method of filling in large
      empty areas.  The problem did not cause incorrect behavior, only
      inefficiency.
+
+(After release 5 the one change is to update the "reaching the author" section
+above in this document.)
 
 My best scores as of release 5 are 5 seconds for Beginner, 40 seconds for
 Intermediate, and 135 seconds for Expert.
