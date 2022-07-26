@@ -1,0 +1,495 @@
+
+                                  MINER              (release 5)
+
+One of the most popular games available under MicroSoft Windows is a little
+hack called MineSweeper.  Numerous copies and imitations of that game exist,
+including at least four for the Amiga.  I tried Minefield by David J.
+Zechiel, Mineclearer by Kopetzky Theodorich, and WBMineSweeper by Marat
+Fayzullin.  But in playing them, I was frustrated.  They all have annoying
+shortcomings.  (And all three of these authors asked for money for their
+games.)  Finally I couldn't stand it any more, and decided to write a DECENT
+minesweeping game.  It's called Miner, and so naturally it's dedicated to Jay
+Miner.  And it's free.  Miner release 5 is copyright © 1994, 1995 by Paul
+Kienitz, and may be freely copied and distributed as long as none of the
+included files are removed or altered.
+
+After the first release of Miner, I ran across MineSweeper by John Matthews.
+This is the fanciest of the other programs, but I still found it annoying or
+frustrating in some ways.  Before reading its docs, I had not known about
+some of the options available in Windows MineSweeper, and as a result I ended
+up adding features to Miner for a second release.  These changes greatly
+improve the ability to get good scores, and I think you'll find that Miner is
+the "fastest" of the mine games -- the easiest to get impressive scores with,
+while offering no play features not available in the others (no cheats).
+
+
+	OVERVIEW:
+	=========
+
+The game is played on a rectangular grid of squares, each of which may or may
+not have a mine hidden under it.  Your goal is to click the mouse on every
+square that does NOT have a mine.  If you click on a mined square, you get
+blown up and lose the game.  If you click on a safe square, a number appears
+in it telling you how many -- but not which -- of the eight squares next to
+the one you clicked on are mined.  This information can often tell you, if
+you use logic, where other safe squares are.
+
+Once you click on a square for the first time, a the clock starts counting
+elapsed time.  To get a good score, you want to click on all the safe squares
+on the board in as few seconds as possible.  The three best times for each
+size of board are stored in a high scores list.
+
+There are six board sizes available.  Like most minesweeping games, there are
+three standard sizes called "Beginnner", "Intermediate", and "Expert".
+Unlike any of the other games mentioned above, the board sizes used by Miner
+match those with the same name in the original Windows MineSweeper game, so
+you can compare your scores directly with those of people who play
+MineSweeper under Windows.  They are:
+
+    Beginner:      8 squares high and 8 squares wide, with 10 mines.
+    Intermediate:  16 squares high and 16 squares wide, with 40 mines.
+    Exert:         16 squares high and 30 squares wide, with 99 mines.
+
+There are also three custom board sizes which you can adjust.  Many mine
+games allow you to specify a custom size, but do not remember the size you
+pick, or store high scores for it.  Miner remembers three different custom
+sizes, and will keep track of high scores for each one, until you change its
+parameters.  By default, the three custom boards start out as:
+
+    Custom #1:  12 squares high and 12 squares wide, with 28 mines.
+    Custom #2:  15 squares high and 20 squares wide, with 55 mines.
+    Custom #3:  21 squares high and 30 squares wide, with 120 mines.
+
+The default Custom #1 size matches the "Semiprofis" size used in Kopetzky
+Theodorich's MineClearer.  The default Custom #3 size, 21 by 30, is the
+largest board that can be displayed on a 640 by 200 screen.  If your Amiga's
+display has more resolution, you can select sizes as large as will fit.  A
+PAL system with overscan could have board sizes of 29 by 33 or even larger,
+even without selecting a higher resolution screen mode.  If possible, the
+board will be made of fairly large squares, roomy enough so that the numbers
+inside them are very easily legible.  But with the larger board sizes such as
+"Expert", this is not possible; it has to use somewhat smaller squares so
+that everything can fit.
+
+Miner can be run from CLI or Workbench, and in the former case it detaches
+itself to run in the background automatically.  AmigaDOS 2.04 or higher is
+required.  There are no startup arguments.  Unlike release 3 and older,
+release 5 does not require an unusually large stack setting.
+
+The first thing it does is read the file "Miner.scores", which it keeps in
+the same directory the program itself is in (PROGDIR:).  This tells it not
+just the current high score list, but the parameters of the three custom
+boards, and what board size you were using the last time you ran the game,
+and the custom screen mode you have selected, if any.  It will start with the
+same size you had last played, when freshly started.  If there is no high
+score file, it creates a beginner board.
+
+Most of the screen is available for the board display.  If the board does not
+fill this space, which it rarely does, it is centered.  On the left margin is
+a display area containing two numbers displayed in large yellow numerals, and
+three gadgets.  The upper number, labeled "Time", tells how many seconds have
+elapsed since you began the game, and the lower one, labeled "Mines", tells
+how many unlocated mines are in the board.  The three gadgets are "New",
+"Pause", and "Quit".  The first one erases the board and makes a new one,
+ready to begin a new game with.  The second is used only in the middle of a
+game, and is ghosted at other times; it lets you temporarily stop in the
+middle of a game.  The third causes Miner to exit immediately, writing out an
+updated high scores file if any score or setting has been changed.
+
+
+	MENUS:
+	======
+
+Most options are controlled with menus.  Since the right mouse button is used
+in playing the game, the mouse pointer must be over some part of the screen
+other than the board itself, to use the menus.  There are three menus: "Game",
+"Board", and "Options".  The items in the "Game" menu are:
+
+    "New game" -- like the "New" gadget, it creates a new board ready to play
+    a fresh game on.  It can be used in mid-game to start over, or after a
+    game has been completed.
+       key shortcut "N"
+
+    "Pause" -- again, just like the gadget.  Ghosted except when in mid-game.
+    It causes the clock to stop, so that you can do something else until you
+    want to finish the game.  It covers up the board with a big blue
+    requester so that you can't cheat by studying it while the clock is
+    stopped.  To resume the game, click the left mouse button anywhere on the
+    screen, or press any key.
+       key shortcut "P"
+
+    "Best scores" -- displays the three best times that anyone has achieved
+    for each of the six board sizes, and then waits for you to click the
+    mouse to clear the display.  Each board size includes a notation of its
+    parameters in a format like this: "(30 × 16, 99M)", where the first
+    number is the board's width, the second is the height, and the third is
+    the number of mines.
+       key shortcut "S"
+
+    "About" -- displays the name of the program and its author, and a summary
+    of the object of the game.  If "About" or "Best scores" is used in the
+    middle of a game, the clock will wait as with "Pause" for you to go back
+    to the game by clicking the mouse or pressing a key.  "About" and "Best
+    scores" both cover up the board just the way "Pause" does, only with
+    different text.
+       key shortcut "A"
+
+    "Quit" -- like the gadget, exits the game immediately, updating the high
+    scores file.
+       key shortcut "Q"
+
+There is a dividing line between "Best scores" and "About".  The "Board" menu
+is used to select the size of board the game is played on -- it is explained
+below.  The third menu, "Options", has these items:
+
+    "Screen mode" -- opens the ASL screenmode requester, if you have AmigaDOS
+    2.1 or newer.  (If you have 2.04, you can get a copy of asl.library from
+    someone who has 2.1, and install it in place of the copy you have, and
+    this feature will work.)  The requester lets you select PAL instead of
+    NTSC or vice versa, select high resolution AGA display modes, or use
+    interlaced modes.  Only high-res modes that support 8 colors are listed.
+    Note that the squares of the board will look "squashed" in interlace, so
+    I usually recommend sticking with the noninterlaced modes.  This option
+    is disabled while a game is in progress.  Miner initially uses a high-res
+    noninterlaced screen of your machine's default monitor type.
+       key shortcut "M"
+
+    "Sound effects" -- this is a checkmark option which you can switch on or
+    off.  Its setting is saved in the high scores file so that your last
+    setting remains in force when you start a new game.  When checked, the
+    game will accompany your actions with sound effects, if appropriate sound
+    sample files are provided.  If no such files are found, the item is
+    disabled.  The game becomes silent when the item is unchecked.  Providing
+    sound files is explained below.
+       key shortcut "Z".
+
+    "Beat the clock" -- a checkmark option which is always off when the
+    program is started.  When on, it stops the game as soon as your time is
+    no longer good enough to make the high scores list.  If all you're
+    interested in is getting an improved high score, you may find that this
+    saves time.
+       key shortcut "C"
+
+    "Use `?' marks" -- this is another checkmark option which has its setting
+    saved in the high scores file.  When checked, clicking the right mouse
+    button on a flagged square replaces the flag with a question mark.  When
+    not checked, the flag is simply removed.
+       key shortcut "?"
+
+    "Win with flags" -- another checkmark option saved in the high scores
+    file.  When not checked, the way to win the game is by testing every
+    square that does not have a mine.  When checked, the way to win is by
+    flagging every square that does have a mine.  These are explained below.
+       key shortcut "F"
+
+Each of these has a right-Amiga-key shortcut, as listed above.  The
+shortcuts, unlike the right mouse button, work even if the mouse pointer is
+over the board.  In the case of the "?" key, a "/" also works, so it is not
+necessary to hold down a shift key as well as right-Amiga.  In the case of
+the "New", "Pause", and "Quit" commands, you can also use the letters N, P,
+and Q without the right-Amiga key, as indicated by the underlines beneath
+these letters in the three gadgets.
+
+One feature of this game is that if another window becomes active -- for
+instance, if your modem just connected and your telecomm program popped to
+the front -- then Miner's "Pause" feature will automatically take effect.
+You have to click the mouse on its screen to resume the game, after bringing
+Miner back to the front.  This means that if you are interrupted by other
+work, it won't just ruin what would otherwise be a good score, though of
+course it may break your rhythm or concentration.
+
+
+	SELECTING BOARD SIZES:
+	======================
+
+The "Board" menu contains six checkmarked items for selecting which size of
+board to play on, "Beginner", "Intermediate", "Expert", "Custom #1",
+"Custom #2", or "Custom #3".  The currently selected board size has a
+checkmark next to the menu item.  If you select one of these items, a new
+ready-to-play board of that size is created.  As with the "New" gadget, this
+can be used to stop a game in the middle.  The six board selection items also
+have right-Amiga-key shortcuts: the keys are B, I, E, 1, 2, and 3.
+
+The final item in the "Board" menu is a submenu labeled "Customize".  It is
+used to select parameters for the three custom boards.  There is one subitem
+for each custom board, labeled in a format like this: "#1  (12 × 12, 28M)".
+The numbers in parentheses show the current settings for that board size, in
+the same format used in the high scores file: width, height, and number of
+mines.  The first number is 1, 2, or 3, indicating which custom board this
+subitem will modify.  The "Customize" submenu is disabled while actually
+playing a game.  Unlike the other menu options, it has no key shortcuts.
+
+Selecting one of these opens a dialog window with three numeric slider
+gadgets.  The first adjusts the width of the board, from 1 to the maximum
+that will fit on the screen.  The second adjusts the height likewise.  The
+third adjusts the number of mines, with the maximum being half of the total
+number of squares in the board.  Each slider has the current number displayed
+to its right.  Clicking to the left or right of the movable part of the
+slider will decrease or increase the number by one.
+
+As you adjust the width and height, the setting for the number of mines will
+change automatically.  For instance, if you double the width, the number of
+mines also doubles.  Below the mines slider is a line that tells what percent
+of the board's squares will be mined; that number tries to stay constant as
+you adjust the size.
+
+At the bottom of the dialog window are "Okay" and "Cancel" buttons.  If you
+have the new settings as you wish them, click "Okay".  If you want to go back
+to the settings you had before the window was opened, click "Cancel".  If you
+change the size (clicking "Okay") and then win a game with the new size, the
+previous high scores for that custom board will be forgotten.  They will be
+remembered for the old size, however, as long as you have not yet won a game
+with the new size.  The high scores list will display the previous board
+parameters until they are replaced with a new winning time.
+
+
+    ACTUALLY PLAYING THE GAME:
+    ==========================
+
+To start playing the game, just click on some squares at random.  Untried
+squares are displayed with a "raised" border; the ones you click on are
+displayed with "recessed" borders.  The clock starts with the first click.
+That first click will never hit a mine, but when you pick squares at random
+for later clicks, there is no guarantee.  Sooner or later you will either hit
+a mine, in which case you will have to start over, or you will hit a square
+that has no mines next to it.  This shows as a blank recessed square.
+
+When you click on one of these, the game automatically checks all the squares
+next to it to see how many mines are around each of them, since it is known
+that they are all safe to try.  If any of them have no mines around them,
+each of their neighbors is tried, and so on.  This continues until it can no
+longer find squares without mines next to them.  Because of this effect, one
+click can sometimes fill in a rather large irregularly shaped area of the
+board, with blank squares in the middle and numbered squares around the
+edges.  Any flags that were mistakenly placed on these squares (see next
+paragraph) will be cleared away.
+
+Once this happens, you are ready to settle down to serious playing, figuring
+out where the bombs are around the filled-in area from the numbers in the
+squares around its edges.  When you think you know where a mine is, click the
+RIGHT mouse button on the square.  This marks the square with a red flag.
+It is possible to play the game without using flags, but it is much easier
+and safer to mark known mines with them so you don't click them by mistake.
+Every time you flag a square, the number of mines shown on the left side of
+the screen decreases, showing you how many are still unaccounted for.  If you
+plant too many flags, this number becomes negative, and is shown in red
+numerals instead of yellow.
+
+If you click the right mouse button on a flagged square, the action depends
+on the setting of the "Use `?' marks" menu item.  If it is not checked, then
+a right button click on a flagged square removes the flag.  If it is checked,
+the flag is replaced with a question mark, which some players may find useful
+as a way of making notes of squares they are unsure of.  Clicking the right
+mouse button on a question mark removes it, restoring a blank square.  If
+question marks are being used, the way to remove a flag is to click the right
+mouse button twice.
+
+If you click the left button on a mined square, you lose the game.  The clock
+stops, the screen flashes red briefly, and all of the hidden mines appear.
+Any squares which were not mined, but which you had mistakenly put a flag on,
+will still have the flag showing; elsewhere the flags will be replaced with
+pictures of bombs.  The mine that you stepped on is shown in a recessed
+square colored red.
+
+Clicking the left mouse button on a square marked with either a flag or a
+question mark has no effect.  The mark makes the square "safe" so you can't
+trigger any bomb it contains.  You must remove the flag or question mark to
+uncover the square.
+
+If you click either mouse button on a square that has already been clicked
+on and is showing a number, then what happens depends on how many flags are
+around the square.  If the number of flags is not equal to the number shown
+in the square, then any neighboring squares which have not been clicked or
+flagged, including question-marked squares, will temporarily show as recessed
+until you release the mouse button.  This serves as a simple visual reminder
+of which squares are neighbors of the one clicked on.
+
+If the number of flags next to a numbered square is equal to the number
+shown, this means -- if you haven't made any mistakes in placing the flags,
+that is -- that all of the mines next to that square are in known positions,
+and any squares that are not flagged are safe to click on.  Under these
+conditions, when you click either button on the numbered square, any squares
+next to it which are not flagged, are all automatically tried, as if you had
+clicked the left button on each of them in turn.  This feature can save
+considerable time.  But if any of the neighboring flags are placed
+incorrectly, then at least one mine will be exploded by this process, and you
+will lose the game.
+
+You may wonder why I combined two different functions on one mouse action,
+depending on the number of surrounding flags, and why I put them on both
+buttons instead of just picking one.  The answer is that I tried setting up
+this feature in a few different ways, and this is the easiest and, most
+importantly, the fastest way to play once you get used to it.  The Windows
+version requires you to press both mouse buttons at once to automatically try
+neighboring squares, and John Matthews' version uses the right button.  By
+offering the same feature in a form that is (in my opinion) less awkward,
+Miner may allow you to get faster times while still playing under identical
+rules.  And by also handling the other actions too, it won't confuse those
+who are used to doing it another way.
+
+Normally, if you uncover the last untried square that does not have a mine
+under it, you win.  This is the way to win if the "Win with flags" option is
+turned off.  If it is on, the way to win is by placing a flag on every square
+that has a mine under it, and no other squares.  In most cases this rule
+change affects only the last few moves of the game.  In either case, any
+unmarked squares get flagged or numbered automatically.  The clock stops, the
+screen flashes various festive colors, and if your score is better than any
+of the scores in the high score list for that board size, a window appears
+that asks you for your name.  It contains a statement such as (for example)
+"You got the second best Beginner score!" and a string gadget where you can
+type your name or some other brief comment, up to 21 characters long.  Type
+something into the string gadget and press return.  The window also lists the
+three previous best scores for that board.  If you get another high score in
+the same run of the program, the string gadget will still contain what you
+typed into it last time, so you need only press return if you don't want to
+change it.  The window will close, and the high score list will appear,
+including your new score.  Clicking the left button removes the high score
+list.
+
+If the "Beat the clock" option is turned on, and the timer becomes equal to
+the time in the third best high score for this board, the game stops.  A
+requester appears saying (for instance) "You didn't finish in 74 seconds!
+That's the time required to make the high scores list in the Intermediate
+category."  The requester has an "Okay" gadget which you have to click to
+remove it.  (Any error messages the game displays use a similar requester.)
+
+When a game ends, either in victory or defeat, the board is left on screen
+for you to study, showing all the flags and numbers if you won, or if you
+lost, all the mines, all flags misplaced on an unmined square, and whatever
+numbers you uncovered.  If you want to play another game, use the "New"
+gadget or menu item, or select a different board size.
+
+
+    SOUND EFFECTS:
+    ==============
+
+Release 5 of Miner adds optional sound effects, which you can customize.  By
+default, it looks for three IFF 8SVX sound sample files in the same directory
+that the program is in (PROGDIR:, that is).  The names it looks for are
+"Miner.BoomSound", "Miner.WinSound", and "Miner.TestSound".  If it finds a
+file by that first name, it plays the sound in it whenever you explode a mine
+and lose.  The second sound is played when you win a game.  The third is used
+whenever you test an untried square.  Any or all of these files may be
+absent.  Any IFF sample up to 128K in size may be used for either sound, or
+double that size if you use a stereo sample.  The distribution includes a set
+of sample files with these names.  To use them, copy them into whatever
+directory you put Miner in.  If you don't want sound, don't copy these files.
+The Workbench drawer in the Miner archive is set to display all files, so
+these sound files will show as generic "project" icons (or tool icons if you
+fail to preserve attributes when unpacking).  To use these files, you can
+simply drop these icons into whatever drawer you put Miner in; if it is set
+to "Icons only", they will not appear visually there.
+
+Further customization is available with command line or tool type arguments.
+Up to six sound files can be specified.  The first three have the defaults
+mentioned in the previous paragraph, and the other three default to nothing.
+The command template has six keywords, each of which can be used as a tool
+type name in the game's Workbench icon: "BoomSound/K,WinSound/K,TestSound/K,
+NeighborTestSound/K,RippleSound/K,FlagSound/K".  Follow the keyword with the
+full pathname of the IFF sample file to use.  So you can specify sounds on
+the command line with, for example: "Miner winsound sys:Music/Samples/
+Whoopee", or use the Workbench Information command to give the icon some tool
+type lines such as "TESTSOUND=sys:Music/Samples/Tick".  If any specified file
+is not found, then that action will be silent, except as noted below.  If
+chip memory is tight, audio may be disabled.  The six possible sounds are
+used as follows:
+
+    BoomSound           when you detonate a mine
+    WinSound            when you win a game
+    TestSound           when you click on a square, yielding a number
+    NeighborTestSound   when you click on a numbered square with the right
+                         number of flags around it, so as to test its
+                         neighbors automatically
+    RippleSound         when you click a square and it has no bombs next to
+                         it, so it automatically fills in a blank area
+    FlagSound           when you set or remove a flag or "?" mark
+
+If either RippleSound or NeighborTestSound is not specified, but TestSound
+is, then TestSound is used in place of the other sound.  The first two sounds
+may be of long duration but the others should be brief -- a "tick" sound, or
+something similarly quick.  Those short sounds are all played at half volume,
+whereas the first two are played at full volume.
+
+
+    REACHING THE AUTHOR:
+    ====================
+
+I am open to suggestions for improving future releases of the game.  At this
+point I have pretty much included every feature I ever thought of adding.
+
+I can be reached in the following ways, at least for the time being:
+
+Fido netmail: "Paul Kienitz" at 1:161/16
+Internet email: Paul.Kienitz@shelter.sf.ca.us
+
+Note that the two email addresses above have CHANGED since release 3!
+
+or try these northern California BBSes:           paper mail:
+                                                    Paul Kienitz
+  Winners Circle     510-845-4812                   6430 San Pablo ave.
+  La Cantina / FAUG  415-341-7566                   Oakland, CA, 94608
+                                                    USA
+
+    HISTORY:
+    ========
+
+Release 1:
+  - A basic minesweeper clone with three custom board sizes.
+
+Release 2:
+  - Added the feature for automatically trying all unflagged neighboring
+     squares of a numbered square with the right number of flags around it.
+  - The "Beat the clock" option was added.
+  - It used to write out a new high scores file every time you exited the
+     program; now it skips that if none of the data in the file is different.
+  - Added a hack which ensures that the first square you click on to begin a
+     game is never mined.  Not that this makes much difference if you have to
+     click on four or five to get started.
+  - Made menu shortcuts operational when the mouse pointer is over the board.
+
+Release 3:
+  - The window that asks for your name when you make a new high score now
+     lists the previous high scores for that board.  The string gadget in
+     that window now reactivates itself if you click elsewhere in the window.
+     It also rejects names consisting only of spaces, and no longer reacts to
+     the tab key as if you pressed return.
+  - The "New", "Pause", and "Quit" gadgets now have key shortcuts; you can
+     just type N, P, or Q without using the right-Amiga key.
+  - Fixed a bug: the right-Amiga key shortcuts did not work when the mouse
+     was over the board and a game was in progress, and some didn't work
+     correctly even when no game was under way.  They all work now.
+
+Release 4:
+  - Option to use "?" marks added.
+  - "Screen mode" menu option added.
+  - There is no longer a requirement for a great big stack.  A drawback of
+     this change is that filling in large empty areas may be a bit slower.
+  - The About/Pause/High scores requester can now be removed by pressing any
+     key, as well as by clicking the left mouse button.
+  - Made the color flashes when you hit a bomb or win a game happen
+     simultaneously with other actions, so they don't delay anything.  Such
+     flashes now involve both the light gray and darker gray areas of the
+     screen simultaneously, to make it more emphatic.  The flash when you win
+     is longer and fancier.  It also now fixes any error caused by a screen
+     "beep" during a flash sequence.
+  - Cosmetic error fixed: "Beat the clock" requester was overly tall.
+
+Release 5:
+  - Audio added, and startup options to customize it.
+  - Options menu added, three items moved there from Game menu, "Sound
+     effects" checkmark item added.
+  - "Win with flags" option added.
+  - Fixed a bug that caused it to open a low-res screen when the high scores
+     file was not found.
+  - Made the ASL screen mode requester select the correct screen type as the
+     default when no type is specified in the high scores file.
+  - Corrected a failure to update the display of the number of remaining
+     mines when flags get overwritten by an automatically expanded empty
+     area.  The count itself would become inaccurate if "?" marks were
+     overrun this way.
+  - Fixed a small error in the stack-conserving method of filling in large
+     empty areas.  The problem did not cause incorrect behavior, only
+     inefficiency.
+
+My best scores as of release 5 are 5 seconds for Beginner, 40 seconds for
+Intermediate, and 135 seconds for Expert.
